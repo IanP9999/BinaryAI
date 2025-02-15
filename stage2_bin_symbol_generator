@@ -1,0 +1,32 @@
+import random
+
+def generate_stage2_data():
+    """Generate 100 lists with binary numbers interspersed with mathematical symbols."""
+    num_tests = 100
+    operators = ['+', '-', '*', '/']
+    max_value = int('11111111111111', 2)
+    test_data = []
+    for _ in range(num_tests):
+        # Choose an odd length (3, 5, or 7 tokens) to alternate between numbers and symbols.
+        list_length = random.choice([3, 5, 7])
+        tokens = []
+        for i in range(list_length):
+            if i % 2 == 0:
+                # Even index: binary number
+                tokens.append(bin(random.randint(0, max_value))[2:])
+            else:
+                # Odd index: operator
+                tokens.append(random.choice(operators))
+        test_data.append(tokens)
+    return test_data
+
+def main():
+    data = generate_stage2_data()
+    for item in data:
+        print(item)
+    with open("stage2_test_data.txt", "w") as f:
+        for item in data:
+            f.write(str(item) + "\n")
+
+if __name__ == "__main__":
+    main()
